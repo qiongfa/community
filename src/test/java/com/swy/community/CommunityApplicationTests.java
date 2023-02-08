@@ -8,6 +8,9 @@ import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class CommunityApplicationTests implements ApplicationContextAware {
@@ -22,5 +25,11 @@ public class CommunityApplicationTests implements ApplicationContextAware {
     @Override
     public void setApplicationContext(ApplicationContext applicationContext) throws BeansException {
         this.applicationContext = applicationContext;
+    }
+
+    @Test
+    void testBean() {
+        SimpleDateFormat simpleDateFormat = applicationContext.getBean(SimpleDateFormat.class);
+        System.out.printf(simpleDateFormat.format(new Date()));
     }
 }
