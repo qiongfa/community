@@ -1,20 +1,30 @@
 package com.swy.community;
 
 
+import com.swy.community.dao.DiscussPostMapper;
 import com.swy.community.dao.UserMapper;
+import com.swy.community.entity.DiscussPost;
 import com.swy.community.entity.User;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import javax.sql.DataSource;
 import java.util.Date;
+import java.util.List;
 
 @SpringBootTest
 @ContextConfiguration(classes = CommunityApplication.class)
 public class MapperTests {
     @Autowired
     private UserMapper userMapper;
+
+    @Autowired
+    private DataSource dataSource;
+
+    @Autowired
+    private DiscussPostMapper discussPostMapper;
 
     @Test
     public void testSelectUser() {
@@ -51,5 +61,23 @@ public class MapperTests {
         rows = userMapper.updatePassword(150, "hello");
         System.out.println(rows);
     }
+
+    @Test
+    public void TestDataSource() {
+        System.out.printf(dataSource.toString());
+    }
+
+    @Test
+    public void TestSelectPosts() {
+        List<DiscussPost> discussPosts = discussPostMapper.selectDiscussPost(0, 0, 10);
+        for (DiscussPost discussPost : discussPosts) {
+            System.out.println(discussPost);
+            ;
+        }
+
+        int rows = discussPostMapper.selectDiscussPostRows(149);
+        System.out.println(rows);
+    }
+
 
 }

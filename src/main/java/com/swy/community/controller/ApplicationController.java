@@ -21,6 +21,7 @@ public class ApplicationController {
 
     }
 
+
     @RequestMapping("/data")
     @ResponseBody
     public String getData() {
